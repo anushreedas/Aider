@@ -56,20 +56,12 @@
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="Button" x:Key="btnGreen">
-            <Setter Property="Background" Value="#fff"/>
-            <Setter Property="Foreground" Value="#000"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Margin" Value="5"/>
+        <Style TargetType="Button" x:Key="SettingsButton">
+            <Setter Property="Background" Value="#00cccc"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-CornerRadius="5"
-BorderThickness="1"
-Padding="5"
-BorderBrush="#000">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
 
                             </ContentPresenter>
@@ -79,26 +71,23 @@ BorderBrush="#000">
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Green"/>
-                    <Setter Property="Foreground" Value="#fff"/>
+                    <Setter Property="Background" Value="#00cccc"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-        <Style TargetType="Button" x:Key="btnLightRed">
-            <Setter Property="Background" Value="#fff"/>
-            <Setter Property="Foreground" Value="#000"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Margin" Value="5"/>
+        
+        
+        
+        
+        <Style TargetType="Button" x:Key="TemplateButton">
+            <Setter Property="Background" Value="#008080"/>
+            <Setter Property="Foreground" Value="#ffffff"/>
+            <Setter Property="FontSize" Value="25"/>
             <Setter Property="Padding" Value="5"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-CornerRadius="5"
-BorderThickness="1"
-Padding="5"
-BorderBrush="#000">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderThickness="1" Padding="5" BorderBrush="#00d6d6">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
 
                             </ContentPresenter>
@@ -108,12 +97,47 @@ BorderBrush="#000">
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightCoral"/>
+                    <Setter Property="Background" Value="#00d6d6"/>
                     <Setter Property="Foreground" Value="#fff"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#004d4d"/>                    
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
+        <Style TargetType="Button" x:Key="CreateThreadButton">
+            <Setter Property="Background" Value="#008080"/>
+            <Setter Property="Foreground" Value="#e8e8fc"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="5"/>
 
+            <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="1" Padding="5" BorderBrush="#00d6d6">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        </ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#00d6d6"/>
+                <Setter Property="Foreground" Value="#fff"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#004d4d"/>
+            </Trigger>
+        </Style.Triggers>
+        </Style>
+
+        
+        
+        
+        
         <Style TargetType="Button" x:Key="btnGray">
             <Setter Property="Background" Value="#fff"/>
             <Setter Property="Foreground" Value="#000"/>

@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <Image Name="RightPanelBackground" Grid.Column="2" Stretch="Fill" Opacity="0.7"/>
         <DockPanel Name="LeftPanel" Grid.Column="0" >
-            <Button Name="CreateThread" DockPanel.Dock="Bottom" Background="#008080" Padding="3"  BorderThickness="0" TextElement.FontSize="15" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold">Create New Thread+</Button>
+            <Button Name="CreateThread" DockPanel.Dock="Bottom" Style="{StaticResource CreateThreadButton}">Create New Thread+</Button>
         <StackPanel Name="LeftTopPanel">
             <StackPanel.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -127,8 +127,20 @@
                 <Label Content="Thread Name" TextElement.Foreground="#ffffff" TextElement.FontSize="18" Grid.Column="0" Grid.Row="0"/>
                 <Label Content="Thread Members: Jon, Bran, Jaime, Tyrion, Varys.." TextElement.Foreground="#ccffff" TextElement.FontSize="16" Grid.Column="0" Grid.Row="1"/>
                 <Button TextElement.Foreground="#ccffff" TextElement.FontSize="12" Grid.Column="1" Grid.Row="0" Background="Transparent">Group Settings</Button>
-                <Button Name="SettingsButton" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Padding="10" Background="Transparent" TextElement.Foreground="#e8e8fc">
-                    <Image Source="images/settingsicon.png"></Image>
+                <Button Style="{StaticResource SettingsButton}"  Name="SettingsButton" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Padding="10" TextElement.Foreground="#e8e8fc">
+                    <Image Width="35">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="images/settings32w.png"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="images/settings32db.png"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+
+                    </Image>
                 </Button>
             </Grid>
             <DockPanel Background="Transparent" Name="SendMessagePanel" DockPanel.Dock="Bottom" TextElement.FontSize="14" Margin="5 5 20 10">
@@ -142,7 +154,7 @@
                     <Image Source="images/send.png" MaxWidth="32" Opacity="0.7"/>
                 </Button>
                 
-                <TextBox Padding="5" AcceptsReturn="True" TextWrapping="Wrap"/>
+                <TextBox Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap"/>
                 
             </DockPanel>
             <ScrollViewer Name="messagesScroller" CanContentScroll="False" PanningMode="VerticalOnly" VerticalScrollBarVisibility="Auto" Background="Transparent" Height="584" VerticalAlignment="Top">

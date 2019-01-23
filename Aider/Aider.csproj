@@ -99,7 +99,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\bg1.jpg" />
@@ -145,6 +147,11 @@
   <ItemGroup>
     <Resource Include="images\forward.png" />
     <Resource Include="images\send.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\settings32db.png" />
+    <Resource Include="images\settings32lb.png" />
+    <Resource Include="images\settings32w.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
