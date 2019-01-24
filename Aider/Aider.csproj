@@ -74,6 +74,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ScrollbarDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -152,6 +156,20 @@
     <Resource Include="images\settings32db.png" />
     <Resource Include="images\settings32lb.png" />
     <Resource Include="images\settings32w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\cancel_db.png" />
+    <Resource Include="images\cancel_lb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\audio.png" />
+    <Resource Include="images\file.png" />
+    <Resource Include="images\link.png" />
+    <Resource Include="images\picture.png" />
+    <Resource Include="images\video.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\link2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
