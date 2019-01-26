@@ -13,27 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
-
-namespace Aider
+namespace Aider.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MessagePage.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class MessagePage : Page
     {
-        public MainView()
+        public MessagePage()
         {
             InitializeComponent();
-            
         }
-
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             ShowHideMenu("sbShowRightMenu", SettingsPanel);
             SettingsButton.IsEnabled = false;
         }
 
-                
+
         private void CancelSettingsButton_Click(object sender, RoutedEventArgs e)
         {
             ShowHideMenu("sbHideRightMenu", SettingsPanel);
@@ -46,26 +43,31 @@ namespace Aider
             pnl.Visibility = System.Windows.Visibility.Visible;
             sb.Begin(pnl);
 
-            if (Storyboard.Contains("Show"))
-            {                
-                
-            }
-
-            if (Storyboard.Contains("Hide"))
-            {
-                
-            }
-
         }
 
         private void AttachmentsButton_Click(object sender, RoutedEventArgs e)
         {
-            if((AttachmentsPanel.Visibility==System.Windows.Visibility.Collapsed) || (AttachmentsPanel.Margin == new Thickness(0, 0, 0, -100)) )
+            if ((AttachmentsPanel.Visibility == System.Windows.Visibility.Collapsed) || (AttachmentsPanel.Margin == new Thickness(0, 0, 0, -100)))
                 ShowHideMenu("sbShowBottomMenu", AttachmentsPanel);
             else
             {
                 ShowHideMenu("sbHideBottomMenu", AttachmentsPanel);
             }
         }
+
+        private void EditProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame pageFrame = null;
+            DependencyObject currParent = VisualTreeHelper.GetParent(this);
+            while (currParent != null && pageFrame == null)
+            {
+                pageFrame = currParent as Frame;
+                currParent = VisualTreeHelper.GetParent(currParent);
+            }
+
+            if (pageFrame != null)
+                pageFrame.Source = new Uri("Page1.xaml", UriKind.Relative);
+        }
     }
+
 }

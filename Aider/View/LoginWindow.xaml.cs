@@ -12,16 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Aider
+namespace Aider.View
 {
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class LoginWindow : Window
     {
-        public LoginView()
+        public LoginWindow()
         {
             InitializeComponent();
+        }
+
+
+        MainWindow w = new MainWindow();
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            w.Show();
+            Hide();
         }
     }
 }

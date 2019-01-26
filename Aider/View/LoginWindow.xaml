@@ -1,19 +1,21 @@
-﻿<Window x:Class="Aider.LoginView"
+﻿<Window x:Class="Aider.View.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Aider" xmlns:ctrl="clr-namespace:Aider"
+        xmlns:local="clr-namespace:Aider.View"
         mc:Ignorable="d"
-        Title="Aider - Login" Height="700" Width="1225"
-        WindowStartupLocation="CenterScreen">
-    
-    
-    <DockPanel>
-        <Canvas Name="Header" DockPanel.Dock="Top" Height="150" >
-            <Image Source="images/header.png" Width="{Binding Path=ActualWidth, ElementName=Header}" Height="{Binding Path=ActualHeight, ElementName=Header}" Stretch="UniformToFill"/>
+        WindowStartupLocation="CenterScreen"
+       Title="LoginWindow" Height="700" Width="1225">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Canvas Name="Header" Grid.Row="0">
+            <Image Source="../images/header.png" Width="{Binding Path=ActualWidth, ElementName=Header}" Height="{Binding Path=ActualHeight, ElementName=Header}" Stretch="UniformToFill"/>
         </Canvas>
-        <Grid>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -25,9 +27,10 @@
                 <TextBox Margin="0 0 0 10" TextElement.FontSize="24" Padding="2"/>
                 <Label HorizontalAlignment="Center" TextElement.FontSize="25">Password</Label>
                 <TextBox Margin="0 0 0 10" TextElement.FontSize="24" Padding="2"/>
-                <Button Margin="0 10" TextElement.FontSize="25" Style="{StaticResource TemplateButton}">Login</Button>
+                <Button Margin="0 10" TextElement.FontSize="25" Style="{StaticResource TemplateButton}" Click="LoginButton_Click">Login</Button>
                 <TextBlock Text="{Binding MyLogin.Message}"></TextBlock>
             </StackPanel>
         </Grid>
-    </DockPanel>
+    </Grid>
 </Window>
+
