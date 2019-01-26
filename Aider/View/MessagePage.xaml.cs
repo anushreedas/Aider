@@ -66,7 +66,22 @@ namespace Aider.View
             }
 
             if (pageFrame != null)
-                pageFrame.Source = new Uri("Page1.xaml", UriKind.Relative);
+                pageFrame.Source = new Uri("EditProfilePage.xaml", UriKind.Relative);
+        }
+
+        private void ChangePasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            Frame pageFrame = null;
+            DependencyObject currParent = VisualTreeHelper.GetParent(this);
+            while (currParent != null && pageFrame == null)
+            {
+                pageFrame = currParent as Frame;
+                currParent = VisualTreeHelper.GetParent(currParent);
+            }
+
+            if (pageFrame != null)
+                pageFrame.Source = new Uri("ChangePasswordPage.xaml", UriKind.Relative);
         }
     }
 

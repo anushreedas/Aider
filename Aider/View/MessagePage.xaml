@@ -148,9 +148,9 @@
             <TextBlock HorizontalAlignment="Center">9892446974</TextBlock>
             <TextBlock HorizontalAlignment="Center">anushreedas.2710@gmail.com</TextBlock>
             <Separator Margin="10 5"/>
-            <Button>Edit Profile</Button>
+            <Button Name="EditProfileButton" Click="EditProfileButton_Click">Edit Profile</Button>
             <Button>Files Directory</Button>
-            <Button>Change Password</Button>
+            <Button Name="ChangePasswordButton" Click="ChangePasswordButton_Click">Change Password</Button>
             <Separator Margin="10 5"/>
             <Button>About</Button>
             <Button>Send Feedback</Button>
