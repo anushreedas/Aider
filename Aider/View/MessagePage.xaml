@@ -36,7 +36,7 @@
             <Label Content="Thread Name" TextElement.Foreground="#ffffff" TextElement.FontSize="18" Grid.Column="0" Grid.Row="0"/>
             <Label Content="Thread Members: Jon, Bran, Jaime, Tyrion, Varys.." TextElement.Foreground="#ccffff" TextElement.FontSize="16" Grid.Column="0" Grid.Row="1"/>
             <TextBlock TextElement.FontSize="12" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Padding="5">
-                    <Hyperlink>
+                    <Hyperlink Name="ThreadInfoLink" Click="ThreadInfoLink_Click">
                         <Hyperlink.Style>
                             <Style TargetType="Hyperlink"
                                 BasedOn="{StaticResource {x:Type Hyperlink}}">

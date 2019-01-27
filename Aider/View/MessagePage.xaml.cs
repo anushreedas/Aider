@@ -83,6 +83,21 @@ namespace Aider.View
             if (pageFrame != null)
                 pageFrame.Source = new Uri("ChangePasswordPage.xaml", UriKind.Relative);
         }
+
+        private void ThreadInfoLink_Click(object sender, RoutedEventArgs e)
+        {
+             Frame pageFrame = null;
+                DependencyObject currParent = VisualTreeHelper.GetParent(this);
+                while (currParent != null && pageFrame == null)
+                {
+                    pageFrame = currParent as Frame;
+                    currParent = VisualTreeHelper.GetParent(currParent);
+                }
+
+                if (pageFrame != null)
+                    pageFrame.Source = new Uri("ThreadInfoPage.xaml", UriKind.Relative);
+            
+        }
     }
 
 }

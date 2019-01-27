@@ -23,7 +23,7 @@
     </Grid.ColumnDefinitions>
     <Image Name="RightPanelBackground" Grid.Column="2" Stretch="Fill" Opacity="0.7"/>
     <DockPanel Name="LeftPanel" Grid.Column="0" >
-        <Button Name="CreateThread" DockPanel.Dock="Bottom">
+        <Button Name="CreateThread" DockPanel.Dock="Bottom" Click="CreateThread_Click">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="#008080"/>
@@ -142,7 +142,7 @@
 
     <GridSplitter Grid.Column="1" Width="2" HorizontalAlignment="Stretch" />
 
-        <Frame  Grid.Column="2" Source="MessagePage.xaml" Template="{StaticResource FrameStyle}"></Frame>
+        <Frame Name="MainFrame" Grid.Column="2" Source="MessagePage.xaml" Template="{StaticResource FrameStyle}"></Frame>
 
 </Grid>
 </Window>

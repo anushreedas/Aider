@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace Aider.View
 {
     /// <summary>
@@ -22,6 +23,14 @@ namespace Aider.View
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void CreateThread_Click(object sender, RoutedEventArgs e)
+        {
+            Frame pageFrame = MainFrame;
+            
+            if (pageFrame != null)
+                pageFrame.Source = new Uri("CreateThreadPage.xaml", UriKind.Relative);
         }
     }
 }

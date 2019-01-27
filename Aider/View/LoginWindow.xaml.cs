@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Configuration;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Aider.View
 {
@@ -29,8 +33,33 @@ namespace Aider.View
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            w.Show();
-            Hide();
+            
+                
+            OracleConnection myConnection = new OracleConnection();
+            try
+                {
+               
+                
+                
+                myConnection.ConnectionString = "user id = aider; password = 123456; data source = orcl11g";
+                
+                myConnection.Open();
+                w.Show();
+                    
+                    MessageBox.Show("connected");
+                    //dataGrid1.ItemsSource = dt.DefaultView;           
+                }
+                catch
+                {
+                    MessageBox.Show("db error");
+                }
+                finally
+                {
+                    myConnection.Close();
+                }
+            
+            //w.Show();
+            //Hide();
         }
     }
 }
