@@ -154,8 +154,8 @@
                 <Button>Files Directory</Button>
                 <Button Name="ChangePasswordButton" Click="ChangePasswordButton_Click">Change Password</Button>
                 <Separator Margin="10 5"/>
-                <Button>About</Button>
-                <Button>Send Feedback</Button>
+                <Button Name="AboutButton" Click="AboutButton_Click">About</Button>
+                <Button Name="FeedbackButton" Click="FeedbackButton_Click">Send Feedback</Button>
                 <Separator Margin="10 5"/>
                 <Button>Logout</Button>
 

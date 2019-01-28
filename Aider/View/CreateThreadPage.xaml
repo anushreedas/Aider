@@ -69,16 +69,12 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Add Members</Label>
-                        <ComboBox Grid.Column="1" Margin="20 0">
-                            <ComboBoxItem>
-                                <CheckBox>ComboBox Item #1</CheckBox>
-                            </ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">
-                                <CheckBox>ComboBox Item #2</CheckBox>
-                            </ComboBoxItem>
-                            <ComboBoxItem>
-                                <CheckBox>ComboBox Item #3</CheckBox>
-                            </ComboBoxItem>
+                        <ComboBox Name="ListOfUsers" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Items}" Text="{Binding Text}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type local:Item}">
+                                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
 

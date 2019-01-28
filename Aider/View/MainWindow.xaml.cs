@@ -23,6 +23,10 @@ namespace Aider.View
         public MainWindow()
         {
             InitializeComponent();
+            
+            CurrentUser usr = new CurrentUser() { CompanyName="MET ISDR", CurrentUserName="Anushree Das", CurrentUserProfilePhoto="/images/pic2.jpg" };
+            this.CurrentUserInfo.DataContext = usr;
+
             List<Thread> threadslist = new List<Thread>();
             threadslist.Add(new Thread() { ThreadName = "Development", NoOfNewMsgs = 42 });
             threadslist.Add(new Thread() { ThreadName = "Sales", NoOfNewMsgs = 39 });
@@ -52,6 +56,13 @@ namespace Aider.View
 
             public int NoOfNewMsgs2 { get; set; }
 
+        }
+
+        public class CurrentUser
+        {
+            public string CompanyName { get; set; }
+            public string CurrentUserName { get; set; }
+            public string CurrentUserProfilePhoto { get; set; }
         }
 
         private void CreateThread_Click(object sender, RoutedEventArgs e)

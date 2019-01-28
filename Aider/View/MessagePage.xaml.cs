@@ -98,6 +98,36 @@ namespace Aider.View
                     pageFrame.Source = new Uri("ThreadInfoPage.xaml", UriKind.Relative);
             
         }
+
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame pageFrame = null;
+            DependencyObject currParent = VisualTreeHelper.GetParent(this);
+            while (currParent != null && pageFrame == null)
+            {
+                pageFrame = currParent as Frame;
+                currParent = VisualTreeHelper.GetParent(currParent);
+            }
+
+            if (pageFrame != null)
+                pageFrame.Source = new Uri("AboutPage.xaml", UriKind.Relative);
+
+        }
+
+        private void FeedbackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame pageFrame = null;
+            DependencyObject currParent = VisualTreeHelper.GetParent(this);
+            while (currParent != null && pageFrame == null)
+            {
+                pageFrame = currParent as Frame;
+                currParent = VisualTreeHelper.GetParent(currParent);
+            }
+
+            if (pageFrame != null)
+                pageFrame.Source = new Uri("Feedback.xaml", UriKind.Relative);
+
+        }
     }
 
 }

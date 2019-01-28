@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace Aider.View
 {
@@ -23,6 +24,9 @@ namespace Aider.View
         public CreateThreadPage()
         {
             InitializeComponent();
+            
+            List<string> mylist = new List<string>(new string[] { "element1", "element2", "element3" });
+            ListOfUsers.ItemsSource = mylist;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -38,6 +42,14 @@ namespace Aider.View
 
             if (pageFrame != null)
                 pageFrame.Source = new Uri("MessagePage.xaml", UriKind.Relative);
+        }
+
+        public class CreateThread
+        {
+            public string ThreadName { get; set; }
+            public string Description { get; set; }
+            public bool IsPrivate { get; set; }
+            public List<string> Members { get; set; }
         }
     }
 }
