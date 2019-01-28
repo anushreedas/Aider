@@ -228,5 +228,8 @@
   <ItemGroup>
     <Resource Include="connectionstring.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\bcimage.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

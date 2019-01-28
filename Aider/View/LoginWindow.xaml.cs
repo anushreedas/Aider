@@ -45,6 +45,7 @@ namespace Aider.View
                 
                 myConnection.Open();
                 w.Show();
+                Hide();
                     
                     MessageBox.Show("connected");
                     //dataGrid1.ItemsSource = dt.DefaultView;           

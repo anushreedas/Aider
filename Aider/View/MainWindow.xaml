@@ -23,7 +23,15 @@
     </Grid.ColumnDefinitions>
     <Image Name="RightPanelBackground" Grid.Column="2" Stretch="Fill" Opacity="0.7"/>
     <DockPanel Name="LeftPanel" Grid.Column="0" >
-        <Button Name="CreateThread" DockPanel.Dock="Bottom" Click="CreateThread_Click">
+            <DockPanel.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#145252" Offset="0.0" />
+                    <GradientStop Color="#004d4d" Offset="0.25" />
+                    <GradientStop Color="#00b3b3" Offset="0.75" />
+                    <GradientStop Color="#adebeb" Offset="1.0" />
+                </LinearGradientBrush>
+            </DockPanel.Background>
+            <Button Name="CreateThread" DockPanel.Dock="Bottom" Click="CreateThread_Click">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="#008080"/>
@@ -56,17 +64,7 @@
             </Button.Style>
             Create New Thread+
         </Button>
-        <StackPanel Name="LeftTopPanel">
-            <StackPanel.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#145252" Offset="0.0" />
-                    <GradientStop Color="#004d4d" Offset="0.25" />
-                    <GradientStop Color="#00b3b3" Offset="0.75" />
-                    <GradientStop Color="#adebeb" Offset="1.0" />
-                </LinearGradientBrush>
-            </StackPanel.Background>
-
-            <StackPanel Name="CurrentUserInfo" Background="#006666">
+        <StackPanel Name="CurrentUserInfo" Background="#006666" DockPanel.Dock="Top">
                 <Label Name="CompanyName" Content="Company Name" TextElement.FontSize="20" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold" Margin="2, 0"/>
                 <Label TextElement.FontSize="18" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold" Margin="2, 0,0,2">
                     <WrapPanel>
@@ -82,62 +80,56 @@
                     </WrapPanel>
                 </Label>
             </StackPanel>
+            <ScrollViewer PreviewMouseWheel="Scroller_PreviewMouseWheel" Name="Scroller" CanContentScroll="True" PanningMode="VerticalOnly" VerticalScrollBarVisibility="Auto" Background="Transparent"  VerticalAlignment="Top">
+                    <StackPanel>
+                        
+                        <Border Background="#29a3a3" CornerRadius="10,10,0,0" Margin="2,0">
+                            <Label Content="Threads" TextElement.FontSize="15" TextElement.FontWeight="Bold"/>
+                        </Border>
+                        <ListView ItemContainerStyle="{StaticResource ThreadsList}" Name="ThreadsList" Padding="3 0" TextElement.FontSize="15" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold" Background="Transparent" BorderThickness="0">
+                        
+                        <ListView.ItemTemplate>                            
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock Text="#"/>
+                                    <TextBlock Text="{Binding ThreadName}" FontWeight="Bold" />
+                                    <TextBlock Text=" (" />
+                                    <TextBlock Text="{Binding NoOfNewMsgs}" TextDecorations="Underline" Foreground="White" Cursor="Hand" />
+                                    <TextBlock Text=")" />
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        
+                        </ListView>
 
+                        <Border Background="#29a3a3" CornerRadius="10,10,0,0" Margin="2,0">
+                            <Label Content="Direct Messages" TextElement.FontSize="15"/>
+                        </Border>
 
-            <Border Background="#29a3a3" CornerRadius="10,10,0,0" Margin="2,0">
-                <Label Content="Threads" TextElement.FontSize="15" TextElement.FontWeight="Bold"/>
-            </Border>
-            <ListView Name="ThreadsList" Padding="3 0" TextElement.FontSize="15" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold" Background="Transparent" BorderThickness="0">
+                        <ListView ItemContainerStyle="{StaticResource ThreadsList}" Name="DirectMessages" Background="Transparent" BorderThickness="0" TextElement.FontSize="15" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <Ellipse Style="{StaticResource ProfilePhotoThumbnail}">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding ProfilePhoto}"></ImageBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <StackPanel Orientation="Horizontal"  Margin="5" >
+                                    <TextBlock Text="{Binding UserName}" FontWeight="Bold" />
+                                    <TextBlock Text=" (" />
+                                    <TextBlock Text="{Binding NoOfNewMsgs2}" TextDecorations="Underline" Foreground="White" Cursor="Hand" />
+                                    <TextBlock Text=")" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        
+                        </ListView>
+                    </StackPanel>
+                </ScrollViewer>
 
-                <ListViewItem Style="{StaticResource ThreadsList}">
-                    <TextBlock TextElement.FontSize="15">#Thread 1</TextBlock>
-                </ListViewItem>
-                <ListViewItem Style="{StaticResource ThreadsList}">
-                    <TextBlock TextElement.FontSize="15">#Thread 2</TextBlock>
-                </ListViewItem>
-                <ListViewItem Style="{StaticResource ThreadsList}">
-                    <TextBlock TextElement.FontSize="15">#Thread 3</TextBlock>
-                </ListViewItem>
-            </ListView>
-
-            <Border Background="#29a3a3" CornerRadius="10,10,0,0" Margin="2,0">
-                <Label Content="Direct Messages" TextElement.FontSize="15"/>
-            </Border>
-
-            <ListView Background="Transparent" BorderThickness="0" TextElement.FontSize="15" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold">
-                <ListViewItem Style="{StaticResource ThreadsList}">
-                    <WrapPanel>
-                        <Ellipse Style="{StaticResource ProfilePhotoThumbnail}">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="/images/pic1.jpg"></ImageBrush>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <TextBlock Margin="5" >#Thread 1</TextBlock>
-                    </WrapPanel>
-                </ListViewItem>
-                <ListViewItem Style="{StaticResource ThreadsList}">
-                    <WrapPanel>
-                        <Ellipse Style="{StaticResource ProfilePhotoThumbnail}">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="/images/pic3.jpg"></ImageBrush>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <TextBlock Margin="5" >#Thread 2</TextBlock>
-                    </WrapPanel>
-                </ListViewItem>
-                <ListViewItem Style="{StaticResource ThreadsList}">
-                    <WrapPanel>
-                        <Ellipse Style="{StaticResource ProfilePhotoThumbnail}">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="/images/pic4.jpg"></ImageBrush>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <TextBlock Margin="5" >#Thread 3</TextBlock>
-                    </WrapPanel>
-                </ListViewItem>
-            </ListView>
-
-        </StackPanel>
+           
     </DockPanel>
 
     <GridSplitter Grid.Column="1" Width="2" HorizontalAlignment="Stretch" />
