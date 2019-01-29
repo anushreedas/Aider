@@ -7,11 +7,13 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CreateThreadPage">
+   
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
+        
         <Canvas Name="Header" Grid.Row="0">
             <Image Source="../images/header.png" Width="{Binding Path=ActualWidth, ElementName=Header}" Height="{Binding Path=ActualHeight, ElementName=Header}" Stretch="UniformToFill"/>
         </Canvas>
@@ -69,18 +71,18 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Add Members</Label>
-                        <ComboBox Name="ListOfUsers" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Items}" Text="{Binding Text}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate DataType="{x:Type local:Item}">
-                                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                        <ComboBox Name="ListOfUsers" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding }" Text="{Binding Text}" 
+                                  <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type local:CreateThreadPage}">
+                                <CheckBox Content="{Binding }"
+                                          IsChecked="False"/>
+                            </DataTemplate>
+                            </ComboBox.ItemTemplate>/>
                     </Grid>
 
                     <DataGrid Margin="10" HorizontalAlignment="Center" IsReadOnly="True"/>
 
-                    <Button Margin="20" Grid.Column="1" Width="100" Name="NextButton" Style="{StaticResource TemplateButton}" TextElement.FontSize="15" HorizontalAlignment="Center">Save</Button>
+                    <Button Margin="20" Grid.Column="1" Width="100" Name="NextButton" Style="{StaticResource TemplateButton}" TextElement.FontSize="15" HorizontalAlignment="Center">Create</Button>
                 </StackPanel>
             </ScrollViewer>
         </DockPanel>
