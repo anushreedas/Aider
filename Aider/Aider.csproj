@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Model\EmployeesName.cs" />
     <Compile Include="Model\ObservableObject.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="View\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -150,9 +151,7 @@
   <ItemGroup>
     <Resource Include="images\header.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="images\attach24blue.ico" />
     <Resource Include="images\attach24white.ico" />
