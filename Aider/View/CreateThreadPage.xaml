@@ -47,7 +47,7 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Label>Name</Label>
-                        <TextBox Grid.Column="1" Margin="0 5" MinWidth="200" MaxWidth="400" HorizontalAlignment="Left"/>
+                        <TextBox Grid.Column="1" Margin="0 5" MinWidth="200" MaxWidth="400" HorizontalAlignment="Left" />
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -68,19 +68,22 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Add Members</Label>
                         <ComboBox Grid.Column="1" Name="ListOfUsers" IsEditable="True" IsReadOnly="True" Text="{Binding Text}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type data:Employee}">
-                                    <CheckBox Width="{Binding ActualWidth, ElementName=ListOfUsers}" Content="{Binding Ename}" IsChecked="{Binding IsChecked}" Checked="CheckBox_Checked"/>
+                                    <CheckBox Width="{Binding ActualWidth, ElementName=ListOfUsers}" Content="{Binding Ename}" IsChecked="{Binding IsChecked}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                    </Grid>
-
+                        <TextBlock Grid.Column="2" Name="Members" Text="Members:"/>
+                         </Grid>
                     <DataGrid Name="MembersList" Margin="10" HorizontalAlignment="Center" IsReadOnly="True"/>
+
+
 
                     <Button Margin="20" Grid.Column="1" Width="100" Name="NextButton" Style="{StaticResource TemplateButton}" TextElement.FontSize="15" HorizontalAlignment="Center">Save</Button>
                 </StackPanel>

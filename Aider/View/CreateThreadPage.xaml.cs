@@ -25,36 +25,34 @@ namespace Aider.View
     /// </summary>
     public partial class CreateThreadPage : Page
     {
-        private ObservableCollection<Employee> users = new ObservableCollection<Employee>();
-        private ObservableCollection<Employee> checkedUsers;
-
-
+        
         public CreateThreadPage()
         {
             InitializeComponent();
-            users.Add(new Employee("James"));
-            users.Add(new Employee("Jack"));
-            users.Add(new Employee("Jill"));
-            users.Add(new Employee("Jane"));
-            //List<string> mylist = new List<string>(new string[] { "element1", "element2", "element3" });
-            ListOfUsers.ItemsSource = users;
-            checkedUsers = new ObservableCollection<Employee>();
-            checkedUsers.CollectionChanged += Items_CollectionChanged;
-            //MembersList.ItemsSource = checkedUsers;
+            
             mItems = new ObservableCollection<Employee>();
-            mCheckedItems = new HashSet<Employee>();
+            mCheckedItems = new ObservableCollection<Employee>();
             mItems.CollectionChanged += Items_CollectionChanged;
-
+            
+            ListOfUsers.ItemsSource = mItems;
+            MembersList.ItemsSource = Items;
             // Adding test data
             for (int i = 0; i < 10; ++i)
             {
                 mItems.Add(new Employee(string.Format("Item {0}", i.ToString("00"))));
             }
+
+            
         }
         private ObservableCollection<Employee> mItems;
-        private HashSet<Employee> mCheckedItems;
+        private ObservableCollection<Employee> mCheckedItems;
+        private ObservableCollection<Employee> MCheckedItems
+        {
+            get { return mCheckedItems; }
+            set { mCheckedItems = value; RaisePropertyChanged("MCheckedItems"); }
+        }
 
-        public IEnumerable<Employee> Items { get { return mItems; } }
+        public IEnumerable<Employee> Items { get { return mCheckedItems; } }
         private string _text;
 
         public string Text
@@ -67,12 +65,14 @@ namespace Aider.View
 
         private void Items_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            Console.WriteLine("Collection changed");
             if (e.OldItems != null)
             {
                 foreach (Employee item in e.OldItems)
                 {
                     item.PropertyChanged -= Item_PropertyChanged;
                     mCheckedItems.Remove(item);
+                    Console.WriteLine("Removed" + item.Ename);
                 }
             }
             if (e.NewItems != null)
@@ -81,6 +81,7 @@ namespace Aider.View
                 {
                     item.PropertyChanged += Item_PropertyChanged;
                     if (item.IsChecked) mCheckedItems.Add(item);
+                    Console.WriteLine("Added" + item.Ename);
                 }
             }
             UpdateText();
@@ -94,10 +95,12 @@ namespace Aider.View
                 if (item.IsChecked)
                 {
                     mCheckedItems.Add(item);
+                    Console.WriteLine(item.Ename);
                 }
                 else
                 {
                     mCheckedItems.Remove(item);
+                    Console.WriteLine(item.Ename);
                 }
                 UpdateText();
             }
@@ -105,6 +108,9 @@ namespace Aider.View
 
         private void UpdateText()
         {
+            
+            foreach (Employee item in mCheckedItems)
+                Members.Text += "\n" + mCheckedItems.ToString();
             switch (mCheckedItems.Count)
             {
                 case 0:
@@ -140,10 +146,39 @@ namespace Aider.View
             public bool IsPrivate { get; set; }
             public List<string> Members { get; set; }
         }
-
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            Handle(sender as CheckBox);
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Handle(sender as CheckBox);
+        }
+
+        void Handle(CheckBox checkBox)
+        {
+            // Use IsChecked.
+            bool flag = checkBox.IsChecked.Value;
+
+            // Assign Window Title.
+            this.Title = "IsChecked = " + flag.ToString();
+            Employee item = new Employee(checkBox.Content.ToString());
+                if (item.IsChecked)
+                {
+                    mCheckedItems.Add(item);
+                    Console.WriteLine(item.Ename);
+                }
+                else
+                {
+                    mCheckedItems.Remove(item);
+                    Console.WriteLine(item.Ename);
+                }
+            foreach (Employee x in mCheckedItems)
+                Members.Text += "\n" + x.Ename;
+            //MembersList.ItemsSource = mCheckedItems;
             UpdateText();
+            
         }
     }
 
