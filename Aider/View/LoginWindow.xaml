@@ -8,9 +8,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
        Title="LoginWindow" Height="700" Width="1225">
-  <Window.Resources>
-      <vm:LoginViewModel x:key="LoginViewModel"></vm:LoginViewModel>
-  </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -30,7 +28,7 @@
                 <Label HorizontalAlignment="Center" TextElement.FontSize="25">Username</Label>
                 <TextBox Margin="0 0 0 10" TextElement.FontSize="24" Text="{Binding userName, Mode=TwoWay}" Padding="2"/>
                 <Label HorizontalAlignment="Center" TextElement.FontSize="25">Password</Label>
-                <PasswordBox Margin="0 0 0 10" Text="{Binding userName, Mode=TwoWay}" TextElement.FontSize="24" Padding="2"/>
+                <PasswordBox Margin="0 0 0 10"  TextElement.FontSize="24" Padding="2"/>
                 <Button Margin="0 10" TextElement.FontSize="25" Style="{StaticResource TemplateButton}" Click="LoginButton_Click">Login</Button>
                 <TextBlock Text="{Binding MyLogin.Message}"></TextBlock>
             </StackPanel>

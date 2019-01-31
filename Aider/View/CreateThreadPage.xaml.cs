@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 using Aider.Model;
 using System.ComponentModel;
 using System.Collections.Specialized;
-
+using Aider.ViewModel;
 
 namespace Aider.View
 {
@@ -160,8 +160,7 @@ namespace Aider.View
 
             if (pageFrame != null)
                 pageFrame.Source = new Uri("MessagePage.xaml", UriKind.Relative);
-            MainWindow w = new MainWindow();
-            w.UpdateLayout();
+            
         }
         
     }

@@ -90,7 +90,7 @@
             </Button>
         </Grid>
         <ScrollViewer Name="messagesScroller" DockPanel.Dock="Right" CanContentScroll="False" PanningMode="VerticalOnly" VerticalScrollBarVisibility="Auto" Background="Transparent"  VerticalAlignment="Top">
-            <StackPanel Name="SettingsPanel"  Width="300" Visibility="Visible" VerticalAlignment="Top">
+            <StackPanel Name="SettingsPanel"  Width="300" Visibility="Collapsed" VerticalAlignment="Top">
                 <StackPanel.Resources>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="White"/>

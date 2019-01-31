@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Aider.Commands;
 using Aider.Model;
 
 namespace Aider.ViewModel
@@ -22,7 +23,8 @@ namespace Aider.ViewModel
         public ObservableCollection<Thread> Threadnames
         {
             get { return model.ReadThreads(); }
-            set {threadnames=value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Threadnames")); }
+            set {threadnames=value; //threadnames.CollectionChanged += Items_CollectionChanged;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Threadnames")); }
         }
 
         private string threadName;
@@ -67,25 +69,31 @@ namespace Aider.ViewModel
             }
         }
 
-        //private string nameToRegister;
-
+    
     private bool CanExecuteRegister()
     {
-            Console.WriteLine("Can execute!!"); return true;
+            Console.WriteLine("Can execute Register!!"); return true;
     }
 
     private void ExecuteRegister()
     {
-            model.WriteThread(threadName,description,isPrivate,members);
-            ExecuteRefresh();
+            Threadnames=model.WriteThread(threadName,description,isPrivate);
+            //ExecuteRefresh();
             //threadnames.Clear();
-            //Threadnames = model.ReadThreads();
+            Threadnames = model.ReadThreads();
+            Console.WriteLine("Register!!");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Threadnames"));
     }
+
+        private bool CanExecuteRefresh()
+        {
+            Console.WriteLine("Can execute Refresh!!"); ExecuteRefresh(); return true;
+        }
 
         private void ExecuteRefresh()
         {
             Threadnames = model.ReadThreads();
+            Console.WriteLine("Refresh!!");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Threadnames"));
         }
 
@@ -108,7 +116,7 @@ namespace Aider.ViewModel
 
             bool ICommand.CanExecute(object parameter)
             {
-                return Parent.CanExecuteRegister();
+                return Parent.CanExecuteRefresh();
             }
 
             void ICommand.Execute(object parameter)
@@ -156,5 +164,6 @@ namespace Aider.ViewModel
     {
         get {  return new RegisterCommand { Parent = this }; }
     }
+    
 }
 }

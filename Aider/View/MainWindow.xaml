@@ -91,7 +91,7 @@
                     <Border Background="#29a3a3" CornerRadius="10,10,0,0" Margin="2,0">
                         <Grid>
                         <Label Content="Threads" TextElement.FontSize="15" TextElement.FontWeight="Bold"/>
-                        <Button HorizontalAlignment="Right" Name="RefreshThreadsList" Command="{Binding Refresh}">refresh</Button>
+                        <Button Command="{Binding Refresh}" HorizontalAlignment="Right" Name="RefreshThreadsList" Visibility="Hidden">refresh</Button>
                         </Grid>
                     </Border>
                     <ListView x:FieldModifier="public" ItemContainerStyle="{StaticResource ThreadsList}"  ItemsSource="{Binding Threadnames}" x:Name="ThreadsList" Padding="3 0" TextElement.FontSize="15" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold" Background="Transparent" BorderThickness="0">

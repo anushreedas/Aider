@@ -47,7 +47,7 @@ namespace Aider.View
                 w.Show();
                 Hide();
                     
-                    MessageBox.Show("connected");
+                    //MessageBox.Show("connected");
                     //dataGrid1.ItemsSource = dt.DefaultView;           
                 }
                 catch

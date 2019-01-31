@@ -61,6 +61,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Model\EmployeesName.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\ThreadModel.cs" />

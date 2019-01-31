@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace Aider.Model
 {
-    public class Thread
+    public class Thread : ObservableObject
     {
         public int Id { get; set; }
 
@@ -17,21 +17,9 @@ namespace Aider.Model
 
         public string Description { get; set; }
 
-        public char IsPrivate { get; set; }
-
-        public string Members { get; set; }
-
-        public Thread()
-        {
-            
-        }
-
-        public void Revisit()
-        {
-
-        }
-
+        public string IsPrivate { get; set; }
     }
+
     class ThreadModel : ObservableObject
     {
         private ObservableCollection<Thread> dataSource;
@@ -52,7 +40,7 @@ namespace Aider.Model
                 myConnection.Open();
                 Console.WriteLine("Connection State: " + myConnection.State);
                 
-                string cmdstr = "SELECT * FROM thread";
+                string cmdstr = "SELECT THREAD_ID,NAME,DESCRIPTION,PRIVATE FROM thread";
 
                 OracleCommand cmd = new OracleCommand(cmdstr, myConnection);
 
@@ -65,8 +53,8 @@ namespace Aider.Model
                     Console.WriteLine("Connected to database");
                     t.Id = reader.GetInt16(0);
                     t.Name = reader.GetString(1);
-                    //t.Description = reader.GetString(2);
-                    //t.IsPrivate = reader.GetChar(3);
+                    t.Description = reader.GetString(2);
+                    t.IsPrivate = reader.GetString(3);
                     //t.Members = reader.GetString(4);
                     Console.WriteLine(t.Id + " " + t.Name);
                     dataSource.Add(t);
@@ -97,7 +85,7 @@ namespace Aider.Model
                 myConnection.Open();
                 Console.WriteLine("Connection State: " + myConnection.State);
 
-                string cmdstr = "SELECT * FROM thread";
+                string cmdstr = "SELECT THREAD_ID,NAME,DESCRIPTION,PRIVATE FROM thread";
 
                 OracleCommand cmd = new OracleCommand(cmdstr, myConnection);
 
@@ -110,8 +98,8 @@ namespace Aider.Model
                     Console.WriteLine("Connected to database");
                     t.Id = reader.GetInt16(0);
                     t.Name = reader.GetString(1);
-                    //t.Description = reader.GetString(2);
-                    //t.IsPrivate = reader.GetChar(3);
+                    t.Description = reader.GetString(2);
+                    t.IsPrivate = reader.GetString(3);
                     //t.Members = reader.GetString(4);
                     Console.WriteLine(t.Id + " " + t.Name);
                     dataSource.Add(t);
@@ -139,7 +127,7 @@ namespace Aider.Model
             return tn;
         }
 
-        public void WriteThread(string tn, string ds, bool ip, List<string> mem)
+        public ObservableCollection<Thread> WriteThread(string tn, string ds, bool ip)
         {
 
             OracleConnection myConnection = new OracleConnection();
@@ -150,20 +138,25 @@ namespace Aider.Model
                 myConnection.ConnectionString = "user id = aider; password = 123456; data source = orcl11g";
                 myConnection.Open();
                 Console.WriteLine("Connection State for writing: " + myConnection.State);
-                 char ispriv= (ip== true )? 'y' : 'n';
+                char ispriv = (ip == true) ? 'y' : 'n';
 
-                string cmdstr = "INSERT INTO thread(id,name,descrip,private) VALUES(1010,'"+tn+"','"+ds+"','"+ispriv+"')";
-                
+                string cmdstr = "INSERT INTO THREAD(THREAD_ID, NAME,DESCRIPTION,E_DATE ,PRIVATE  ) VALUES(THREAD_SEQUENCE.nextval, '" + tn+"', '"+ds+"',TO_DATE(SYSDATE),'"+ispriv+"')";
+
                 OracleCommand cmd = new OracleCommand(cmdstr, myConnection);
-    
+
                 int rowsUpdated = cmd.ExecuteNonQuery();
+
+                
                 if (rowsUpdated == 0)
                 {
                     MessageBox.Show("Record not inserted");
                 }
                 else
                 {
+                    //MessageBox.Show("qUERYY SUCCESSFULL");
                 }
+               
+                Console.WriteLine("updated table");
                 foreach (Thread th in dataSource)
                     Console.WriteLine(th.Id + " " + th.Name);
             }
@@ -176,7 +169,7 @@ namespace Aider.Model
                // reader.Dispose();
                 myConnection.Close();
             }
-        
+            return ReadThreads();
         }
     }
 }

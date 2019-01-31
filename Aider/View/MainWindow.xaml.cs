@@ -104,8 +104,6 @@ namespace Aider.View
             
         }
 
-        private void RefreshThreadsList_Click(object sender, RoutedEventArgs e)
-        {
-        }
+        
     }
 }
