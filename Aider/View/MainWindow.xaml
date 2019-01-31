@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aider.View"
+        xmlns:vm="clr-namespace:Aider.ViewModel"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="700" Width="1225">
@@ -14,6 +15,10 @@
             </DockPanel>
         </ControlTemplate>
     </Window.Resources>
+
+    <Window.DataContext>
+        <vm:CreateThreadViewModel/>
+    </Window.DataContext>
 
 <Grid Name="OuterContainer">
     <Grid.ColumnDefinitions>
@@ -82,21 +87,17 @@
             </StackPanel>
             <ScrollViewer PreviewMouseWheel="Scroller_PreviewMouseWheel" Name="Scroller" CanContentScroll="True" PanningMode="VerticalOnly" VerticalScrollBarVisibility="Auto" Background="Transparent"  VerticalAlignment="Top">
                     <StackPanel>
-                        
-                        <Border Background="#29a3a3" CornerRadius="10,10,0,0" Margin="2,0">
-                            <Label Content="Threads" TextElement.FontSize="15" TextElement.FontWeight="Bold"/>
-                        </Border>
-                        <ListView ItemContainerStyle="{StaticResource ThreadsList}" Name="ThreadsList" Padding="3 0" TextElement.FontSize="15" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold" Background="Transparent" BorderThickness="0">
-                        
-                        <ListView.ItemTemplate>                            
+
+                    <Border Background="#29a3a3" CornerRadius="10,10,0,0" Margin="2,0">
+                        <Grid>
+                        <Label Content="Threads" TextElement.FontSize="15" TextElement.FontWeight="Bold"/>
+                        <Button HorizontalAlignment="Right" Name="RefreshThreadsList" Command="{Binding Refresh}">refresh</Button>
+                        </Grid>
+                    </Border>
+                    <ListView x:FieldModifier="public" ItemContainerStyle="{StaticResource ThreadsList}"  ItemsSource="{Binding Threadnames}" x:Name="ThreadsList" Padding="3 0" TextElement.FontSize="15" TextElement.Foreground="#e8e8fc" TextElement.FontWeight="DemiBold" Background="Transparent" BorderThickness="0">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <WrapPanel>
-                                    <TextBlock Text="#"/>
-                                    <TextBlock Text="{Binding ThreadName}" FontWeight="Bold" />
-                                    <TextBlock Text=" (" />
-                                    <TextBlock Text="{Binding NoOfNewMsgs}" TextDecorations="Underline" Foreground="White" Cursor="Hand" />
-                                    <TextBlock Text=")" />
-                                </WrapPanel>
+                                <TextBlock Text="{Binding Name}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                         

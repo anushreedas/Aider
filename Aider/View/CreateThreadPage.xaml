@@ -5,10 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Aider.View"
       xmlns:data = "clr-namespace:Aider.Model"
+      xmlns:vm ="clr-namespace:Aider.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CreateThreadPage">
-    
+    <Page.DataContext>
+        <vm:CreateThreadViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -47,7 +50,7 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Label>Name</Label>
-                        <TextBox Grid.Column="1" Margin="0 5" MinWidth="200" MaxWidth="400" HorizontalAlignment="Left" />
+                        <TextBox Name="ThreadName_TextBox" Text="{Binding ThreadName, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="0 5" MinWidth="200" MaxWidth="400" HorizontalAlignment="Left" />
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -55,15 +58,15 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Description</Label>
-                        <TextBox Grid.Column="1" Margin="0 5" Height="50" MinWidth="200" MaxWidth="600" HorizontalAlignment="Left"/>
+                        <TextBox Name="ThreadDescription_TextBox" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="0 5" Height="50" MinWidth="200" MaxWidth="600" HorizontalAlignment="Left"/>
                     </Grid>
                     <Grid Margin="100 0 200 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <RadioButton Grid.Column="0">Private</RadioButton>
-                        <RadioButton  Grid.Column="1" IsChecked="True">Public</RadioButton>
+                        <RadioButton Name="PrivateRadioButton" Grid.Column="0" IsChecked="{Binding IsPrivate, UpdateSourceTrigger=PropertyChanged}">Private</RadioButton>
+                        <RadioButton Name="PublicRadioButton" Grid.Column="1" IsChecked="True">Public</RadioButton>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -72,20 +75,30 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Add Members</Label>
-                        <ComboBox Grid.Column="1" Name="ListOfUsers" IsEditable="True" IsReadOnly="True" Text="{Binding Text}">
+                        <ComboBox Grid.Column="1" Name="ListOfUsers" IsEditable="True" IsReadOnly="True" Text="Members" Height="40" VerticalAlignment="Top">
+                            <ComboBox.Style>
+                                <Style TargetType="{x:Type ComboBox}">
+                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=PrivateRadioButton}" Value="True">
+                                            <Setter Property="IsEnabled" Value="True"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type data:Employee}">
-                                    <CheckBox Width="{Binding ActualWidth, ElementName=ListOfUsers}" Content="{Binding Ename}" IsChecked="{Binding IsChecked}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                                    <CheckBox Width="{Binding ActualWidth, ElementName=ListOfUsers}" Content="{Binding Name}" IsChecked="{Binding IsChecked}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Grid.Column="2" Name="Members" Text="Members:"/>
-                         </Grid>
-                    <DataGrid Name="MembersList" Margin="10" HorizontalAlignment="Center" IsReadOnly="True"/>
+                        <DataGrid Grid.Column="2" Name="MembersList" Margin="10" HorizontalAlignment="Center" IsReadOnly="True">
+                        </DataGrid>
+                    </Grid>
 
 
 
-                    <Button Margin="20" Grid.Column="1" Width="100" Name="NextButton" Style="{StaticResource TemplateButton}" TextElement.FontSize="15" HorizontalAlignment="Center">Save</Button>
+                    <Button Margin="20" Command="{Binding Register}" Grid.Column="1" Width="100" Name="CreateButton" Style="{StaticResource TemplateButton}" TextElement.FontSize="15" HorizontalAlignment="Right" Click="CreateButton_Click">Create</Button>
                 </StackPanel>
             </ScrollViewer>
         </DockPanel>

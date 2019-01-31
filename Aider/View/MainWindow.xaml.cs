@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Aider.Model;
 
 
 namespace Aider.View
@@ -20,6 +24,11 @@ namespace Aider.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        ThreadModel model = new ThreadModel();
+
+       // public event PropertyChangedEventHandler PropertyChanged;
+
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -27,13 +36,16 @@ namespace Aider.View
             CurrentUser usr = new CurrentUser() { CompanyName="MET ISDR", CurrentUserName="Anushree Das", CurrentUserProfilePhoto="/images/pic2.jpg" };
             this.CurrentUserInfo.DataContext = usr;
 
-            List<Thread> threadslist = new List<Thread>();
+            /*List<Thread> threadslist = new List<Thread>();
             threadslist.Add(new Thread() { ThreadName = "Development", NoOfNewMsgs = 42 });
             threadslist.Add(new Thread() { ThreadName = "Sales", NoOfNewMsgs = 39 });
             threadslist.Add(new Thread() { ThreadName = "Marketing", NoOfNewMsgs = 13 });
             ThreadsList.ItemsSource = threadslist;
-
-            List<DirectMsg> directmsgslist = new List<DirectMsg>();
+            */
+            //Threads.CollectionChanged += Items_CollectionChanged;
+            //ThreadsList.ItemsSource = threadlist;
+            
+        List<DirectMsg> directmsgslist = new List<DirectMsg>();
             directmsgslist.Add(new DirectMsg() { ProfilePhoto = "/images/pic1.jpg", UserName = "White Walker", NoOfNewMsgs2 = 4 });
             directmsgslist.Add(new DirectMsg() { ProfilePhoto = "/images/pic2.jpg", UserName = "Melisandre", NoOfNewMsgs2 = 0 });
             directmsgslist.Add(new DirectMsg() { ProfilePhoto = "/images/pic3.jpg", UserName = "Daenarys", NoOfNewMsgs2 = 2 });
@@ -41,14 +53,25 @@ namespace Aider.View
             DirectMessages.ItemsSource = directmsgslist;
         }
 
-        public class Thread
+/*
+        public IEnumerable<Thread> Threads
         {
-            public string ThreadName { get; set; }
+            set {; }
+            get { return model.ReadThreads(); }
+        }
 
-            public int NoOfNewMsgs { get; set; }
+        public List<string> threadlist
+        {
+            get
+            {
+                List<string> tn = new List<string>();
+                foreach (Thread t in Threads)
+                    tn.Add(t.Name.ToString());
+                return tn;
+            }
+        }
 
-        }   
-
+    */
         public class DirectMsg
         {
             public string ProfilePhoto { get; set; }
@@ -79,6 +102,10 @@ namespace Aider.View
                 scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
                 e.Handled = true;
             
+        }
+
+        private void RefreshThreadsList_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

@@ -10,28 +10,33 @@ using System.ComponentModel;
 namespace Aider.Model
 {
     
-    public class Employee:ObservableObject
+    public class Employee : ObservableObject
     {
-        private string ename;
+        private string name;
         private bool _isChecked;
 
-        public string Ename
+        public string Name
         {
-            get {return ename; }
-            set { ename = value; }
+            get {return name; }
+            set { name = value; RaisePropertyChangedEvent("Name"); }
         }
 
         public bool IsChecked
         {
             get { return _isChecked; }
-            set { _isChecked = value; }
+            set { _isChecked = value; RaisePropertyChangedEvent("IsChecked"); }
         }
         
 
         public Employee(string s)
         {
-            this.ename = s;
+            this.name = s;
             this._isChecked = false;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

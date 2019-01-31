@@ -25,11 +25,15 @@ namespace Aider.View
     /// </summary>
     public partial class CreateThreadPage : Page
     {
-        
+        private ObservableCollection<Employee> mItems;
+        private ObservableCollection<Employee> mCheckedItems;
+        public IEnumerable<Employee> Items { get { return mCheckedItems; } }
+
+
         public CreateThreadPage()
         {
             InitializeComponent();
-            
+
             mItems = new ObservableCollection<Employee>();
             mCheckedItems = new ObservableCollection<Employee>();
             mItems.CollectionChanged += Items_CollectionChanged;
@@ -41,27 +45,17 @@ namespace Aider.View
             {
                 mItems.Add(new Employee(string.Format("Item {0}", i.ToString("00"))));
             }
-
-            
-        }
-        private ObservableCollection<Employee> mItems;
-        private ObservableCollection<Employee> mCheckedItems;
-        private ObservableCollection<Employee> MCheckedItems
-        {
-            get { return mCheckedItems; }
-            set { mCheckedItems = value; RaisePropertyChanged("MCheckedItems"); }
         }
 
-        public IEnumerable<Employee> Items { get { return mCheckedItems; } }
         private string _text;
 
         public string Text
         {
             get { return _text; }
-            set {  _text=  value; }
+            set { _text = value; }
         }
-        
-        
+
+
 
         private void Items_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -72,7 +66,7 @@ namespace Aider.View
                 {
                     item.PropertyChanged -= Item_PropertyChanged;
                     mCheckedItems.Remove(item);
-                    Console.WriteLine("Removed" + item.Ename);
+                    Console.WriteLine("Removed" + item.Name);
                 }
             }
             if (e.NewItems != null)
@@ -81,7 +75,7 @@ namespace Aider.View
                 {
                     item.PropertyChanged += Item_PropertyChanged;
                     if (item.IsChecked) mCheckedItems.Add(item);
-                    Console.WriteLine("Added" + item.Ename);
+                    Console.WriteLine("Added" + item.Name);
                 }
             }
             UpdateText();
@@ -89,18 +83,19 @@ namespace Aider.View
 
         private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            Console.WriteLine("Item Property Changed");
             if (e.PropertyName == "IsChecked")
             {
                 Employee item = (Employee)sender;
                 if (item.IsChecked)
                 {
                     mCheckedItems.Add(item);
-                    Console.WriteLine(item.Ename);
+                    Console.WriteLine(item.Name);
                 }
                 else
                 {
                     mCheckedItems.Remove(item);
-                    Console.WriteLine(item.Ename);
+                    Console.WriteLine(item.Name);
                 }
                 UpdateText();
             }
@@ -108,16 +103,14 @@ namespace Aider.View
 
         private void UpdateText()
         {
-            
-            foreach (Employee item in mCheckedItems)
-                Members.Text += "\n" + mCheckedItems.ToString();
+
             switch (mCheckedItems.Count)
             {
                 case 0:
                     Text = "<none>";
                     break;
                 case 1:
-                    Text = mCheckedItems.First().Ename;
+                    Text = "";
                     break;
                 default:
                     Text = "<multiple>";
@@ -146,41 +139,30 @@ namespace Aider.View
             public bool IsPrivate { get; set; }
             public List<string> Members { get; set; }
         }
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            Handle(sender as CheckBox);
-        }
+        private List<string> mem;
 
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            Handle(sender as CheckBox);
-        }
-
-        void Handle(CheckBox checkBox)
-        {
-            // Use IsChecked.
-            bool flag = checkBox.IsChecked.Value;
-
-            // Assign Window Title.
-            this.Title = "IsChecked = " + flag.ToString();
-            Employee item = new Employee(checkBox.Content.ToString());
-                if (item.IsChecked)
-                {
-                    mCheckedItems.Add(item);
-                    Console.WriteLine(item.Ename);
-                }
-                else
-                {
-                    mCheckedItems.Remove(item);
-                    Console.WriteLine(item.Ename);
-                }
+            Console.WriteLine("Thread Created");
+            mem = new List<string>();
+            if (mCheckedItems.Count == 0) mCheckedItems = mItems;
             foreach (Employee x in mCheckedItems)
-                Members.Text += "\n" + x.Ename;
-            //MembersList.ItemsSource = mCheckedItems;
-            UpdateText();
-            
-        }
-    }
+            { mem.Add(x.Name);  }
+            new CreateThread() { ThreadName = ThreadName_TextBox.Text, Description = ThreadDescription_TextBox.Text, IsPrivate = true, Members = mem };
 
-   
+            Frame pageFrame = null;
+            DependencyObject currParent = VisualTreeHelper.GetParent(this);
+            while (currParent != null && pageFrame == null)
+            {
+                pageFrame = currParent as Frame;
+                currParent = VisualTreeHelper.GetParent(currParent);
+            }
+
+            if (pageFrame != null)
+                pageFrame.Source = new Uri("MessagePage.xaml", UriKind.Relative);
+            MainWindow w = new MainWindow();
+            w.UpdateLayout();
+        }
+        
+    }
 }

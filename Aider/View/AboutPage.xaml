@@ -38,14 +38,11 @@
                         </Style>
                     </StackPanel.Resources>
 
-                    <TextBlock TextElement.FontSize="25">Feedback</TextBlock>
-                    <TextBlock>Rating</TextBlock>
+                    <TextBlock TextElement.FontSize="25">About</TextBlock>
+                    <TextBlock>Creators</TextBlock>
 
-                    <TextBlock>Comment</TextBlock>
-                    <TextBox Height="100"></TextBox>
-
-                    <Button Margin="20" Grid.Column="1" Width="100" Name="EditButton" Style="{StaticResource TemplateButton}" TextElement.FontSize="15" HorizontalAlignment="Right">Edit</Button>
-                </StackPanel>
+                    <TextBlock>skhgvsgbskdcgbk</TextBlock>
+                     </StackPanel>
             </ScrollViewer>
         </DockPanel>
     </Grid>
