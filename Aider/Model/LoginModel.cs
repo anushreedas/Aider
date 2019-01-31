@@ -1,88 +1,56 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Data.OracleClient;
+using System.Windows;
 
 namespace Aider.Model
 {
-    public class LoginModel : INotifyPropertyChanged
+    
+    class LoginModel
     {
-        public string userName;
-        public string password;
-        public string validation;
 
-        public string UserName
+        public bool Validate(string username, string password)
         {
-            get
+            bool valid = false;
+            OracleConnection myConnection = new OracleConnection();
+            OracleDataReader reader = null;
+            try
             {
-                return userName;
-            }
-            set
-            {
-                if (userName != null)
+                myConnection.ConnectionString = "user id = aider; password = 123456; data source = orcl11g";
+                myConnection.Open();
+                Console.WriteLine("Connection State: " + myConnection.State);
+
+                string cmdstr = "SELECT E_EMAIL_ID,PASSWORD FROM EMPLOYEE";
+
+                OracleCommand cmd = new OracleCommand(cmdstr, myConnection);
+
+                reader = cmd.ExecuteReader();
+                if (reader.HasRows) Console.WriteLine("has rows database");
+                else Console.WriteLine("no rows");
+                while (reader.Read())
                 {
-                    userName = value;
-                    OnPropertyChanged("UserName");
+                    //Console.WriteLine("Connected to database");
+                    Console.WriteLine(reader.GetString(0));
+                    if ((username == reader.GetString(0)) && (password == reader.GetString(1)))
+                    { valid = true; break; }
+                    else
+                        valid = false;
                 }
+                
             }
+            catch
+            {
+                MessageBox.Show("db error");
+            }
+            finally
+            {
+                reader.Dispose();
+                myConnection.Close();
+            }
+            return valid;
         }
-
-        public string Password
-        {
-            get
-            {
-                return password;
-            }
-            set
-            {
-                if (password != null)
-                {
-                    password = value;
-                    OnPropertyChanged("Password");
-                }
-            }
-        }
-
-
-        public string Validation
-        {
-            get
-            {
-                return validation;
-            }
-            set
-            {
-                string ora = "DATA SOURCE=localhost:1521/orcl.168.117.131;PERSIST SECURITY INFO=True;USER ID=ABC;PASSWORD=ROOT";
-                using (OracleConnection myConnection = new OracleConnection(ora))
-                {
-                    myConnection.Open();
-
-                    string cmdstr = "SELECT * FROM test";
-
-                    OracleCommand cmd = new OracleCommand(cmdstr, myConnection);
-
-                    OracleDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-
-                    }
-
-                }
-            }
-        }
-
-        public void OnPropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

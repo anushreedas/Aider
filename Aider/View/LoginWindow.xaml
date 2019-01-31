@@ -7,8 +7,12 @@
         xmlns:vm="clr-namespace:Aider.ViewModel"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-       Title="LoginWindow" Height="700" Width="1225">
-
+       Title="LoginWindow" Height="700" Width="1225"
+        xmlns:helpers="clr-namespace:Aider.Helpers"
+        helpers:DialogCloser.DialogResult="{Binding CloseWindowFlag}">
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -26,11 +30,13 @@
                 <TextBlock TextElement.FontSize="28">LOGIN</TextBlock>
                 <TextBlock Margin="0 0 0 10" HorizontalAlignment="Right" TextElement.FontSize="22" TextElement.Foreground="#4d4d4d">Don't have an account? <Hyperlink NavigateUri="MainWindow.xaml">Register</Hyperlink></TextBlock>
                 <Label HorizontalAlignment="Center" TextElement.FontSize="25">Username</Label>
-                <TextBox Margin="0 0 0 10" TextElement.FontSize="24" Text="{Binding userName, Mode=TwoWay}" Padding="2"/>
+                <TextBox Margin="0 0 0 10" TextElement.FontSize="24" Text="{Binding Username, Mode=TwoWay}" Padding="2"/>
                 <Label HorizontalAlignment="Center" TextElement.FontSize="25">Password</Label>
-                <PasswordBox Margin="0 0 0 10"  TextElement.FontSize="24" Padding="2"/>
-                <Button Margin="0 10" TextElement.FontSize="25" Style="{StaticResource TemplateButton}" Click="LoginButton_Click">Login</Button>
-                <TextBlock Text="{Binding MyLogin.Message}"></TextBlock>
+                <TextBox Margin="0 0 0 10" Text="{Binding Password}" TextElement.FontSize="24" Padding="2"/>
+                <Button Margin="0 10" TextElement.FontSize="25" Style="{StaticResource TemplateButton}" Command="{Binding Login}" CommandParameter="{Binding ElementName=TestWindow}">Login</Button>
+
+                <Label TextElement.FontSize="20" TextElement.FontWeight="Bold" TextElement.Foreground="Red" Name="LoggedIn" Content="{Binding Message}"></Label>
+                
             </StackPanel>
             <Image Grid.Column="1" Source="/images/bcimage.jpg" Margin="10" Stretch="Fill"/>
         </Grid>

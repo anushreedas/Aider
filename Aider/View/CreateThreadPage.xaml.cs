@@ -25,17 +25,17 @@ namespace Aider.View
     /// </summary>
     public partial class CreateThreadPage : Page
     {
-        private ObservableCollection<Employee> mItems;
-        private ObservableCollection<Employee> mCheckedItems;
-        public IEnumerable<Employee> Items { get { return mCheckedItems; } }
+        private ObservableCollection<GroupMember> mItems;
+        private ObservableCollection<GroupMember> mCheckedItems;
+        public IEnumerable<GroupMember> Items { get { return mCheckedItems; } }
 
 
         public CreateThreadPage()
         {
             InitializeComponent();
 
-            mItems = new ObservableCollection<Employee>();
-            mCheckedItems = new ObservableCollection<Employee>();
+            mItems = new ObservableCollection<GroupMember>();
+            mCheckedItems = new ObservableCollection<GroupMember>();
             mItems.CollectionChanged += Items_CollectionChanged;
             
             ListOfUsers.ItemsSource = mItems;
@@ -43,7 +43,7 @@ namespace Aider.View
             // Adding test data
             for (int i = 0; i < 10; ++i)
             {
-                mItems.Add(new Employee(string.Format("Item {0}", i.ToString("00"))));
+                mItems.Add(new GroupMember(string.Format("Item {0}", i.ToString("00"))));
             }
         }
 
@@ -62,7 +62,7 @@ namespace Aider.View
             Console.WriteLine("Collection changed");
             if (e.OldItems != null)
             {
-                foreach (Employee item in e.OldItems)
+                foreach (GroupMember item in e.OldItems)
                 {
                     item.PropertyChanged -= Item_PropertyChanged;
                     mCheckedItems.Remove(item);
@@ -71,7 +71,7 @@ namespace Aider.View
             }
             if (e.NewItems != null)
             {
-                foreach (Employee item in e.NewItems)
+                foreach (GroupMember item in e.NewItems)
                 {
                     item.PropertyChanged += Item_PropertyChanged;
                     if (item.IsChecked) mCheckedItems.Add(item);
@@ -86,7 +86,7 @@ namespace Aider.View
             Console.WriteLine("Item Property Changed");
             if (e.PropertyName == "IsChecked")
             {
-                Employee item = (Employee)sender;
+                GroupMember item = (GroupMember)sender;
                 if (item.IsChecked)
                 {
                     mCheckedItems.Add(item);
@@ -146,7 +146,7 @@ namespace Aider.View
             Console.WriteLine("Thread Created");
             mem = new List<string>();
             if (mCheckedItems.Count == 0) mCheckedItems = mItems;
-            foreach (Employee x in mCheckedItems)
+            foreach (GroupMember x in mCheckedItems)
             { mem.Add(x.Name);  }
             new CreateThread() { ThreadName = ThreadName_TextBox.Text, Description = ThreadDescription_TextBox.Text, IsPrivate = true, Members = mem };
 

@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
-
 
 namespace Aider.Model
 {
-    
-    public class Employee : ObservableObject
+    public class GroupMember : ObservableObject 
     {
         private string name;
         private bool _isChecked;
 
         public string Name
         {
-            get {return name; }
+            get { return name; }
             set { name = value; RaisePropertyChangedEvent("Name"); }
         }
 
@@ -26,9 +22,9 @@ namespace Aider.Model
             get { return _isChecked; }
             set { _isChecked = value; RaisePropertyChangedEvent("IsChecked"); }
         }
-        
 
-        public Employee(string s)
+
+        public GroupMember(string s)
         {
             this.name = s;
             this._isChecked = false;

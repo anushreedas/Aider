@@ -28,39 +28,8 @@ namespace Aider.View
             InitializeComponent();
         }
 
-
-        MainWindow w = new MainWindow();
-
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            
-                
-            OracleConnection myConnection = new OracleConnection();
-            try
-                {
-               
-                
-                
-                myConnection.ConnectionString = "user id = aider; password = 123456; data source = orcl11g";
-                
-                myConnection.Open();
-                w.Show();
-                Hide();
-                    
-                    //MessageBox.Show("connected");
-                    //dataGrid1.ItemsSource = dt.DefaultView;           
-                }
-                catch
-                {
-                    MessageBox.Show("db error");
-                }
-                finally
-                {
-                    myConnection.Close();
-                }
-            
-            //w.Show();
-            //Hide();
         }
     }
 }

@@ -62,10 +62,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Model\EmployeesName.cs" />
+    <Compile Include="Helpers\DialogCloser.cs" />
+    <Compile Include="Model\CurrentUser.cs" />
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\GroupMember.cs" />
+    <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\ThreadModel.cs" />
     <Compile Include="ViewModel\CreateThreadViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
